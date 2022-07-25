@@ -77,6 +77,7 @@ precio_leche_pp = pd.merge(precio_leche, precipitaciones, on = ['mes', 'ano'], h
 precio_leche_pp_pib = pd.merge(precio_leche_pp, banco_central_num, on = ['mes', 'ano'], how = 'inner')
 precio_leche_pp_pib['mes_ano'] = precio_leche_pp_pib.apply(lambda x: f'{x.mes}-{x.ano}', axis =1)
 precio_leche_pp_pib.drop(['ano', 'mes', 'date', 'Periodo', 'mes_pal'], axis = 1, inplace = True)
+# Kept mes_ano case we need to create features based on the period
 
 # Saving the final dataset
 precio_leche_pp_pib.to_csv('./data/precio_leche_pp_pib.csv', index=False)
