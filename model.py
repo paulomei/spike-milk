@@ -19,10 +19,12 @@ np.random.seed(0)
 precio_leche_pp_pib = pd.read_csv('./data/precio_leche_pp_pib.csv')
 precio_leche_pp_pib.drop(['mes_ano'], axis = 1, inplace = True)
 
+# Spliting train/test datasets
 X = precio_leche_pp_pib.drop(['Precio_leche'], axis = 1)
 y = precio_leche_pp_pib['Precio_leche']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
 
+# Transformations to a Ridge Regression
 pipe = Pipeline([('scale', StandardScaler()),
                  ('selector', SelectKBest(mutual_info_regression)),
                  ('poly', PolynomialFeatures()),
@@ -33,6 +35,7 @@ alpha = [1, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01]
 poly = [1, 2, 3, 5, 7]
 param = dict(selector__k = k, poly__degree = poly, model__alpha = alpha)
 
+# Cross Validation grid search
 grid = GridSearchCV(estimator = pipe, param_grid = param, cv = 3, scoring = 'r2')
 grid.fit(X_train, y_train)
 y_predicted = grid.predict(X_test)

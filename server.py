@@ -7,6 +7,7 @@ import logging
 from logging.handlers import TimedRotatingFileHandler 
 from flask import Flask, request, jsonify
 
+# Setting a rotating log
 formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
 handler = TimedRotatingFileHandler('./logs/server.log', when = 'midnight', backupCount = 10)
 handler.setFormatter(formatter)
@@ -14,6 +15,7 @@ logger = logging.getLogger()
 logger.addHandler(handler)
 logger.setLevel(logging.INFO)
 
+# Loading the Flask app with the model
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
 

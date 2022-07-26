@@ -24,4 +24,4 @@ docker run -it -p 5000:5000 spike-milk
 
 Once the image is running you can send REST requests using a script folowing the **client.py** template or a 3rd party REST client like [Postman](https://www.postman.com/product/rest-client)
 
-For more details, please refer to the doc folder.
+For more details, please refer to the docs folder.

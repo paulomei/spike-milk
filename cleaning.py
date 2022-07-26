@@ -58,7 +58,8 @@ banco_central_ivcm = banco_central_ivcm.sort_values(by = 'Periodo', ascending = 
 banco_central_num = pd.merge(banco_central_pib, banco_central_imacec, on = 'Periodo', how = 'inner')
 banco_central_num = pd.merge(banco_central_num, banco_central_ivcm, on = 'Periodo', how = 'inner')
 
-## Suply data and feature engineering
+### Suply data and feature engineering ###
+# A large part of this is missing in the notebook, so not really creating any new feature
 precio_leche = pd.read_csv('./data/precio_leche.csv')
 precio_leche.rename(columns = {'Anio': 'ano', 'Mes': 'mes_pal'}, inplace = True)
 

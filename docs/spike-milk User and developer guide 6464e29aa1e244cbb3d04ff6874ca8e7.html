@@ -1,0 +1,718 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>spike-milk: User and developer guide</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d811d9e9-6bcb-4c06-95eb-aae7231da891" class="page sans"><header><h1 class="page-title">spike-milk: User and developer guide</h1></header><div class="page-body"><p id="54c24825-e432-4ee9-a1e9-e61485928e83" class=""><strong>Author:</strong> Paulo Mei &lt;paulo.mei@outlook.com&gt;</p><p id="129f4444-fe2b-4094-8432-bcf447e5ffad" class=""><strong>Type:</strong> Informational</p><p id="978c2911-925d-46d1-b115-d57e1d7bcd07" class=""><strong>Created:</strong> July 25, 2022</p><p id="cdb16de1-ab9a-40a8-b224-01ec2279c330" class=""><strong>Last Update:</strong> July 26, 2022</p><h1 id="c9c9e052-840d-4cdc-8466-8045d4f62489" class="">Table of contents</h1><nav id="3023f002-0a82-4ccf-871d-0c0ad53047c6" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c9c9e052-840d-4cdc-8466-8045d4f62489">Table of contents</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ee0cf8db-4c72-4846-9c45-0564732bb8d0">1. Introduction</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#220ab1e4-f808-41aa-a1f0-935b739c1181">2. Architecture and tools</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#98664734-4dc4-4bc1-afbe-d0f137ddebfd">2.1 General architecture</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2ef95b6a-e527-4a2f-a32c-e419e387b42a">2.2 HTTP Request format</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f4dd071a-4063-4915-8935-c309dc5ec28d">3. Getting started <mark class="highlight-orange">[User]</mark><mark class="highlight-blue">[Developer]</mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11cdc805-a4de-4582-9b14-32ec07b59599">4. Deployment <mark class="highlight-orange">[User]</mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#904ca33c-760d-47aa-bc75-29449077ee37">5. Points of improvement <mark class="highlight-blue">[Developer]</mark></a></div></nav><h1 id="ee0cf8db-4c72-4846-9c45-0564732bb8d0" class="">1. Introduction</h1><p id="5806a384-d05b-4dc8-b168-5951216274a9" class="">This project is a code challenge for Spike/AAG’s selection process, the objective is to take the <a href="https://github.com/SpikeLab-CL/ml-engineer-challenge/blob/main/data_scientist_past_challenge/data_scientist_challenge_answers.ipynb">predictive model</a> provided into a production environment.</p><p id="ee66f1fc-b65d-407f-8a94-dbc9c775c461" class="">In this document we detail the general architecture and tools used, setup of the developer environment, deployment steps, usage and points of improvement.</p><p id="0a15d146-e56d-4227-b1bf-d434f31548b5" class="">The document is intended for two different roles:</p><ul id="367da29f-2d72-43bd-b2a7-313dc57c497b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange"><strong>User</strong></mark> that will deploy the project to a cloud or on-premise server</li></ul><ul id="b20a2fbc-895f-4f97-b9d0-6ab9ed4e7c1b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue"><strong>Developer</strong></mark> that will setup an environment to further improve the project</li></ul><h1 id="220ab1e4-f808-41aa-a1f0-935b739c1181" class="">2. Architecture and tools</h1><h3 id="98664734-4dc4-4bc1-afbe-d0f137ddebfd" class="">2.1 General architecture</h3><p id="529c31f4-7cf0-493c-9b4f-8530dd98eed6" class="">The Model Server is composed by a serialized Python ML model using <a href="https://docs.python.org/3/library/pickle.html">pickle</a> running in a REST API app created with <a href="https://flask.palletsprojects.com/en/2.1.x/">Flask</a> framework, then encapsulated in a <a href="https://docs.docker.com/">Docker</a> container for easy deployment.</p><p id="d35f5f47-faa1-4c00-ad77-0ea0c0fe15d7" class="">The model ingests data through a HTTP request to predict the price of milk, the client could be any program able to send HTTP POST Requests. The general architecture is pictured bellow:</p><figure id="6464e29a-a1e2-44cb-b3d0-4ff6874ca8e7" class="image"><a href="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/architecture.png"><img style="width:681px" src="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/architecture.png"/></a><figcaption>Image 1. General architecture</figcaption></figure><h3 id="2ef95b6a-e527-4a2f-a32c-e419e387b42a" class="">2.2 HTTP Request format</h3><p id="acdb4fc4-7866-4c15-ba83-511c3ae9c291" class="">The input request is in <a href="https://www.w3schools.com/js/js_json_syntax.asp">JSON format</a>, with only one name/value pair named <strong>values</strong> containing an <strong>array of strings</strong> with the model features.</p><p id="19598058-ca39-415d-bebb-c4d56ca5a1a2" class="">The list of features in the input is described bellow in their respective order:</p><table id="e72eb2e4-29fa-4118-9c45-9e28a2194d68" class="simple-table"><thead class="simple-table-header"><tr id="9bc691bc-e901-4751-adb8-4d9ddbfea79e"><th id="DsXX" class="simple-table-header-color simple-table-header" style="width:162.796875px">Source</th><th id="P=Nt" class="simple-table-header-color simple-table-header" style="width:536px">Feature</th></tr></thead><tbody><tr id="3ec01ca2-ffe3-4692-b13a-4e3804e56836"><th id="DsXX" class="simple-table-header-color simple-table-header" style="width:162.796875px">Precipitation data</th><td id="P=Nt" class="" style="width:536px">Coquimbo
+Valparaiso
+Metropolitana_de_Santiago
+Libertador_Gral__Bernardo_O_Higgins
+Maule
+Biobio
+La_Araucania
+Los_Rios</td></tr><tr id="18bea2c8-23f4-46e6-8a8b-c58957ea36ea"><th id="DsXX" class="simple-table-header-color simple-table-header" style="width:162.796875px">Macroeconomics data</th><td id="P=Nt" class="" style="width:536px">PIB_Agropecuario_silvicola
+PIB_Pesca
+PIB_Mineria
+PIB_Mineria_del_cobre
+PIB_Otras_actividades_mineras
+PIB_Industria_Manufacturera
+PIB_Alimentos
+PIB_Bebidas_y_tabaco
+PIB_Textil
+PIB_Maderas_y_muebles
+PIB_Celulosa
+PIB_Refinacion_de_petroleo
+PIB_Quimica
+PIB_Minerales_no_metalicos_y_metalica_basica
+PIB_Productos_metalicos
+PIB_Electricidad
+PIB_Construccion
+PIB_Comercio
+PIB_Restaurantes_y_hoteles
+PIB_Transporte
+PIB_Comunicaciones
+PIB_Servicios_financieros
+PIB_Servicios_empresariales
+PIB_Servicios_de_vivienda
+PIB_Servicios_personales
+PIB_Administracion_publica
+PIB_a_costo_de_factores
+PIB
+Imacec_empalmado
+Imacec_produccion_de_bienes
+Imacec_minero
+Imacec_industria
+Imacec_resto_de_bienes
+Imacec_comercio
+Imacec_servicios
+Imacec_a_costo_de_factores
+Imacec_no_minero
+Indice_de_ventas_comercio_real_no_durables_IVCM</td></tr></tbody></table><p id="ae979312-454a-483f-81e9-2f009f545e4e" class="">Bellow is an example of an input request:</p><pre id="998fa368-97dc-4ba1-805b-81bccc6f31d4" class="code code-wrap"><code>{&quot;values&quot;: [&quot;3.52467320647237&quot;, &quot;2.37876622956972&quot;, &quot;7.27827181044541&quot;, &quot;4.80475968850213&quot;, &quot;7.83152246846819&quot;, &quot;33.6840026451552&quot;, &quot;96.7079664188219&quot;, &quot;130.212945686754&quot;, &quot;55059326.0&quot;, &quot;449097098.0&quot;, &quot;123408811.0&quot;, &quot;110892244.0&quot;, &quot;125165676.0&quot;, &quot;125915256.0&quot;, &quot;323829181.0&quot;, &quot;160131672.0&quot;, &quot;271608802.0&quot;, &quot;613149007.0&quot;, &quot;111186684.0&quot;, &quot;107176547.0&quot;, &quot;197004194.0&quot;, &quot;6795359.0&quot;, &quot;203394915.0&quot;, &quot;309290133.0&quot;, &quot;635812268.0&quot;, &quot;10768256.0&quot;, &quot;220170996.0&quot;, &quot;539108727.0&quot;, &quot;364948817.0&quot;, &quot;603426797.0&quot;, &quot;126672311.0&quot;, &quot;85785202.0&quot;, &quot;787099521.0&quot;, &quot;522480077.0&quot;, &quot;102724817.0&quot;, &quot;112152352.0&quot;, &quot;97.6&quot;, &quot;101.54&quot;, &quot;97.7&quot;, &quot;98.5&quot;, &quot;107.47&quot;, &quot;103.244&quot;, &quot;93.851&quot;, &quot;97.687&quot;, &quot;97.5&quot;, &quot;94.3&quot;]}</code></pre><h1 id="f4dd071a-4063-4915-8935-c309dc5ec28d" class="">3. Getting started <mark class="highlight-orange">[User]</mark><mark class="highlight-blue">[Developer]</mark></h1><p id="92a9d502-fb0f-4005-bcfc-843ddf51505d" class="">The first thing you need to do is install git, python3 and docker in your workstation, preferably in a Linux distro <em>(project was developed in a Ubuntu distro in </em><em><a href="https://docs.microsoft.com/en-us/windows/wsl/install">WSL</a></em><em>)</em>.</p><p id="e8d61487-7294-41e5-b610-71b916e8200a" class="">In the terminal clone the project running:</p><pre id="1b846224-31bc-4d3e-af4a-42ffb8fdcf49" class="code code-wrap"><code>git clone https://github.com/paulomei/spike-milk</code></pre><figure id="983550a4-66b6-4006-a5b8-cc5746d79e06" class="image"><a href="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled.png"><img style="width:1118px" src="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled.png"/></a></figure><p id="4161e630-dfaf-48fe-9ba6-1b1131e4c39b" class="">The project uses <a href="https://docs.python.org/3/library/venv.html">Python’s virtual environment</a> module to self-contain the necessary libraries. You can activate/deactivate the environment running:</p><pre id="fe4f9d0f-0546-4f16-b7e3-f2b64e482c3d" class="code code-wrap"><code>source activate
+deactivate</code></pre><p id="5b999c49-d53c-45c2-ae40-f4d17d16d914" class="">To check the libraries or install any extra, use pip commands.
+</p><figure id="c92d90ca-6730-4139-8979-946b0617522a" class="image"><a href="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled%201.png"><img style="width:1118px" src="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled%201.png"/></a></figure><p id="692e1c61-3fb7-4eb4-9f6e-daa81e8d317d" class="">From here you can update the model, add more features to the flask app, etc. Bellow the description of each file if the project:</p><table id="a86dcd40-9356-4fe3-bcb3-1fbf4c804746" class="simple-table"><thead class="simple-table-header"><tr id="241c7b37-a2b5-4a51-b31d-e9cc18bc34b7"><th id="jw@i" class="simple-table-header-color simple-table-header">File name</th><th id="PHgX" class="simple-table-header-color simple-table-header" style="width:589px">Description</th></tr></thead><tbody><tr id="5f0be34b-4674-4f47-8a26-956d6786c322"><td id="jw@i" class="">cleaning.py</td><td id="PHgX" class="" style="width:589px">Preprocess the precipitation and macroeconomics data and merge them with the milk price</td></tr><tr id="f7864be6-7988-40f2-9510-8835b7cf6559"><td id="jw@i" class="">model.py</td><td id="PHgX" class="" style="width:589px">Loads the merged file from cleaning.py, train the model and save it in a serialized pickle file</td></tr><tr id="ee1b1d3a-e146-4b4c-8a11-28d99b302aeb"><td id="jw@i" class="">model.pk</td><td id="PHgX" class="" style="width:589px">Model object serialized</td></tr><tr id="7c4e087d-2b8f-43b2-9f61-917c470d4183"><td id="jw@i" class="">server.py</td><td id="PHgX" class="" style="width:589px">Flask app that run the HTTP API to access model.pk</td></tr><tr id="63993984-e61c-469c-b241-271f3fa8a4de"><td id="jw@i" class="">client.py</td><td id="PHgX" class="" style="width:589px">Template to send HTTP requests via Python script</td></tr><tr id="d5d657f1-56a3-40d3-849b-16805f3cfbf1"><td id="jw@i" class="">requirements.txt</td><td id="PHgX" class="" style="width:589px">List of library dependencies, it’s generate using the command: <em>pip freeze &gt; requirements.txt</em></td></tr><tr id="38c7adea-d820-4f9a-b597-db6b4d2afbfb"><td id="jw@i" class="">Dockerfile</td><td id="PHgX" class="" style="width:589px">List of instructions to build the docker image</td></tr><tr id="055e2a58-9cb0-4291-885a-9686c0d39a7f"><td id="jw@i" class="">spike-milk</td><td id="PHgX" class="" style="width:589px">Folder that contains everything from the virtual environment</td></tr></tbody></table><h1 id="11cdc805-a4de-4582-9b14-32ec07b59599" class="">4. Deployment <mark class="highlight-orange">[User]</mark></h1><p id="e3f55e45-4a74-4a54-b201-8466d1745d1f" class="">Last step is to build the docker image and run it, when running the image, make sure to expose the port 5000 for HTTP requests.</p><pre id="6d662646-2690-4fbf-b978-12d7720de951" class="code code-wrap"><code>docker build -t spike-milk .
+docker run -it -p 5000:5000 spike-milk</code></pre><figure id="3dd8ce7b-6369-4c5f-8864-cdec46dae9e8" class="image"><a href="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled%202.png"><img style="width:1116px" src="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled%202.png"/></a></figure><figure id="2b499526-cc00-43ab-86d3-f84997917c64" class="image"><a href="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled%203.png"><img style="width:1120px" src="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled%203.png"/></a></figure><p id="8e3f9cb5-bcba-41da-b899-ff2e4b6f88d9" class="">Once it’s running you can send a test request running the <strong>client.py</strong> script or with a 3rd party software like Postman. You can then check the log running:</p><pre id="7a5ef42d-4e23-4193-bf89-43a41b704ac2" class="code code-wrap"><code>docker ps
+docker exec -it &lt;container_id&gt; cat logs/server.log</code></pre><figure id="e3f3b59c-66b7-4d65-9c7c-d325bc9b8f06" class="image"><a href="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled%204.png"><img style="width:1116px" src="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled%204.png"/></a></figure><p id="474772ce-3663-481f-b4fb-11353b819a95" class="">Note that the docker container filesystem is ephemeral, so the log file will be lost once the container is stopped. To prevent this from happening you can save the container state into a new image with the command:</p><pre id="ccec5aa7-0f8b-4c2e-b3a8-f57c794eff1f" class="code code-wrap"><code>docker commit &lt;container_id&gt; spike-milk:&lt;new_tag&gt;</code></pre><figure id="4feca569-3b38-4439-a716-cf46bb38484b" class="image"><a href="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled%205.png"><img style="width:1120px" src="spike-milk%20User%20and%20developer%20guide%206464e29aa1e244cbb3d04ff6874ca8e7/Untitled%205.png"/></a></figure><h1 id="904ca33c-760d-47aa-bc75-29449077ee37" class="">5. Points of improvement <mark class="highlight-blue">[Developer]</mark></h1><p id="3b7a459d-e6d6-4033-a1bc-e72712a3576b" class="">Further improvement in this project is pointless since it’s only a code challenge, but in a real world scenario extra features are required to improve security and maintenance easiness.</p><ul id="e4095810-5dbd-44b4-a629-85a0f989b979" class="bulleted-list"><li style="list-style-type:disc">The model have very low accuracy since the feature engineering was left out of the Jupyter notebook. Working with a data scientist would be required to improve it’s performance and thin down the features required for the prediction.</li></ul><ul id="f09a4859-37bd-4de3-bc35-1928082332a4" class="bulleted-list"><li style="list-style-type:disc">The REST API don’t require any kind of authentication, the best practice would be to use a password or token based authentication.</li></ul><ul id="a1fd63bd-a644-4418-a18e-20eb243425d5" class="bulleted-list"><li style="list-style-type:disc">Automating the initialization in background of the docker image with the OS scheduler (crontab in case of Linux).</li></ul><ul id="83201c1a-17fd-4049-a177-f22ffed9cd5a" class="bulleted-list"><li style="list-style-type:disc">Automating the log collection and funnel it to a proper monitoring tool or a simple dashboard with some KPIs. This is also required to retraining of the model later in the future.</li></ul><p id="ec42889c-8307-442f-b37a-d490c7379ede" class="">
+</p></div></article></body></html>
